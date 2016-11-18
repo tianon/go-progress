@@ -15,6 +15,7 @@ type Bar struct {
 
 	Prefix func(b *Bar) string
 	Suffix func(b *Bar) string
+
 	Phases []string
 
 	out *os.File
@@ -44,7 +45,7 @@ func NewBar(out *os.File) *Bar {
 
 func (b *Bar) Start() {
 	// TODO if isatty
-	//b.out.Write([]byte("\x1b[?25l")) // hide cursor
+	//b.out.Write([]byte("\x1b[?25l")) // hide cursor?
 	b.Tick()
 }
 
@@ -52,10 +53,10 @@ func (b *Bar) Finish() {
 	b.Tick()
 	b.out.Write([]byte("\n"))
 	// TODO if isatty
-	//b.out.Write([]byte("\x1b[?25h")) // show cursor
+	//b.out.Write([]byte("\x1b[?25h")) // show cursor?
 }
 
-// return percentage, normalized to 0-100%
+// percentage, normalized to 0-100%
 func (b *Bar) Progress() float64 {
 	if b.Min >= b.Max {
 		// ignore bad values like cowards
