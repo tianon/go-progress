@@ -20,21 +20,23 @@ type Bar struct {
 	out *os.File
 }
 
+var DefaultPhases = []string{
+	" ",
+	"▏",
+	"▎",
+	"▍",
+	"▌",
+	"▋",
+	"▊",
+	"▉",
+	"█",
+}
+
 func NewBar(out *os.File) *Bar {
 	return &Bar{
 		Prefix: func(_ *Bar) string { return " [" },
 		Suffix: func(_ *Bar) string { return "] " },
-		Phases: []string{
-			" ",
-			"▏",
-			"▎",
-			"▍",
-			"▌",
-			"▋",
-			"▊",
-			"▉",
-			"█",
-		},
+		Phases: DefaultPhases,
 
 		out: out,
 	}
