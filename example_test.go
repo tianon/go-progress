@@ -2,11 +2,25 @@ package progress_test
 
 import (
 	"fmt"
+	"os"
+	"time"
 
 	"go.tianon.xyz/progress"
 )
 
 func ExampleBar() {
+	bar := progress.NewBar(os.Stdout)
+	bar.Max = 100
+
+	bar.Start()
+	for bar.Val = bar.Min; bar.Val <= bar.Max; bar.Val += 25 {
+		bar.Tick()
+		time.Sleep(time.Second)
+	}
+	bar.Finish()
+}
+
+func ExampleBar_tickString() {
 	bar := progress.NewBar(nil)
 	bar.Min = -100
 	bar.Max = 100
