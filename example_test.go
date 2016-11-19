@@ -54,7 +54,7 @@ func ExampleBar_tickString() {
 	// [==]100%
 }
 
-func ExampleBar_morePhases() {
+func ExampleBar_tickStringManyPhases() {
 	bar := progress.NewBar(nil)
 	bar.Min = -100
 	bar.Max = 100
