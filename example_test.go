@@ -8,8 +8,8 @@ import (
 
 func ExampleBar() {
 	bar := progress.NewBar(nil)
-	bar.Min = -50
-	bar.Max = 50
+	bar.Min = -100
+	bar.Max = 100
 
 	bar.Prefix = func(_ *progress.Bar) string {
 		return "["
@@ -30,8 +30,12 @@ func ExampleBar() {
 
 	// Output:
 	// [  ]  0%
+	// [  ] 12%
 	// [- ] 25%
+	// [- ] 38%
 	// [= ] 50%
+	// [= ] 62%
 	// [=-] 75%
+	// [=-] 88%
 	// [==]100%
 }

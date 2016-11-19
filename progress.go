@@ -126,7 +126,7 @@ func (b *Bar) TickString(width int) string {
 	progress := b.Progress()
 	filled := float64(width) * progress
 	nFull := int(filled)
-	phase := int((filled - float64(nFull)) * float64(len(b.Phases)))
+	phase := int((filled - float64(nFull)) * float64(len(b.Phases)-1))
 	nEmpty := width - nFull
 
 	full := ""
