@@ -68,25 +68,18 @@ func (b *Bar) Progress() float64 {
 	if b.Val > b.Max {
 		return 1.0
 	}
-	return float64(b.Val - b.Min) / float64(b.Max - b.Min)
+	return float64(b.Val-b.Min) / float64(b.Max-b.Min)
 }
 
-func (b *Bar) TickString() string {
-	progress := b.Progress()
-
-	//prefix := fmt.Sprintf("%d / %d %s", b.Value, b.Total, b.Prefix)
+func (b *Bar) TickString(width int) string {
 	prefix := b.Prefix(b)
 	suffix := b.Suffix(b)
 
-	width := 80
-	if terminal.IsTerminal(int(b.out.Fd())) {
-		w, _, err := terminal.GetSize(int(b.out.Fd()))
-		if err == nil {
-			width = w
-		}
-	}
 	width -= utf8.RuneCountInString(prefix) + utf8.RuneCountInString(suffix)
 
+	// https://github.com/verigak/progress/blob/c5043685c57294129f654c4b736fe5a119b14ec9/progress/bar.py#L67-L79
+
+	progress := b.Progress()
 	filled := float64(width) * progress
 	nFull := int(filled)
 	phase := int((filled - float64(nFull)) * float64(len(b.Phases)))
@@ -102,7 +95,7 @@ func (b *Bar) TickString() string {
 		current = b.Phases[phase]
 	}
 
-	nEmpty = nEmpty-utf8.RuneCountInString(current)
+	nEmpty = nEmpty - utf8.RuneCountInString(current)
 	empty := ""
 	if nEmpty >= 0 {
 		empty = strings.Repeat(b.Phases[0], nEmpty)
@@ -118,7 +111,14 @@ func (b *Bar) TickString() string {
 }
 
 func (b *Bar) Tick() {
-	writeln(b.out, b.TickString())
+	width := 80
+	if terminal.IsTerminal(int(b.out.Fd())) {
+		w, _, err := terminal.GetSize(int(b.out.Fd()))
+		if err == nil {
+			width = w
+		}
+	}
+	writeln(b.out, b.TickString(width))
 }
 
 // https://github.com/verigak/progress/blob/c5043685c57294129f654c4b736fe5a119b14ec9/progress/helpers.py#L61-L69
