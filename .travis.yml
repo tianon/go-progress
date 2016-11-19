@@ -1,0 +1,8 @@
+language: go
+
+go_import_path: go.tianon.xyz/progress
+
+go:
+  - tip
+  - 1.7.3
+  - 1.6.3
