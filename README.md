@@ -1,4 +1,4 @@
-# `go.tianon.xyz/progress`
+# `import "go.tianon.xyz/progress"`
 
 [![GoDoc](https://godoc.org/go.tianon.xyz/progress?status.svg)](https://godoc.org/go.tianon.xyz/progress)
 
