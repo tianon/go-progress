@@ -15,11 +15,15 @@ jobs:
     strategy:
       matrix:
         go:
-          - 1.16
-          - 1.15
+          # https://github.com/actions/setup-go/tree/v5#using-stableoldstable-aliases
+          - stable
+          - oldstable
+          # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
+          - go.mod
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go }}
+          go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
+          go-version-file: ${{ matrix.go == 'go.mod' && matrix.go || null }}
       - run: go test -v ./...
