@@ -21,7 +21,7 @@ jobs:
           # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
           - go.mod
     steps:
-      - uses: actions/checkout@v4
+      - uses: tianon/actions/checkout/composite@581498642ee39d41dc3a801d22b3f7f42a95acc7 # HEAD
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
